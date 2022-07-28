@@ -59,3 +59,16 @@ select{
       padding: 10px 30px;
       border-radius: 5px;
 }
+
+table {
+   
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+  }
+  
