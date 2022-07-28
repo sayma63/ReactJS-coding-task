@@ -2,11 +2,31 @@ import React, { useState } from 'react';
 import './Form.css'
 
 const Form = () => {
+    const [date,setDate]=useState('');
+    const [amount,setAmount]=useState('');
+    const [payment,setPayment]=useState('');
+    const [remark,setRemark]=useState('');
+    const [dataList,setDataList]=useState([]);
+
+    const handleSubmit =(e)=>{
+        e.preventDefault();
+        const payment=e.target.payment.value;
+        const data={date,amount,payment,remark};
+        console.log(data)
+        if(date && amount && payment && remark){
+            setDataList((dl)=>[...dl,data]);
+            setDate('');
+            setPayment('');
+            setAmount('');
+            
+        }
+
+    } 
     
     return (
         <div className='container form' >
             <h2 className='title mb-4'><u>Receipt Details</u></h2>
-            <form className='d-flex justfy-content-center  ' action="">
+            <form onSubmit={handleSubmit} className='d-flex justfy-content-center  ' action="">
 
               <div >
                 <label htmlFor="date" className='mb-2 '>Date:  </label> <br /><br />
@@ -18,12 +38,12 @@ const Form = () => {
               <div>
                  {/* <input type='text' name='date' id='date' placeholder='Enter Date'/>   */}
 
-                  <input type="text"  name="date" style={{width:'250px'}} placeholder=' Enter Date' id="date"  /> <br />
-                <input type="text" name="amount" style={{width:'750px'}} placeholder='Enter Amount(in INR)' id="amount" required />
-                <select name="payment" id="payment" required  style={{width:'500px'}}>
+                  <input type="text"  name="date" value={date} onChange={(e)=>setDate(e.target.value)} style={{width:'250px'}} placeholder=' Enter Date' id="date"  /> <br />
+                <input type="text" name="amount" style={{width:'750px'}} placeholder='Enter Amount(in INR)' value={amount} onChange={(e)=>setAmount(e.target.value)} id="amount" required />
+                <select name="payment"  id="payment" required  style={{width:'500px'}}>
                     <option value="cash" >Cash</option> <br />
                 </select> <br /> <br />
-                <input type="text" name="remark" id="remark" placeholder='Enter Remark'style={{width:'750px'}} /> <br />
+                <input type="text" value={remark} onChange={(e)=>setRemark(e.target.value)} name="remark" id="remark" placeholder='Enter Remark'style={{width:'750px'}} /> <br />
                  
                 <input type="submit" value="Submit" className=' color mb-2   rounded' /> 
                 <button className='button'>Cancel</button>
@@ -57,6 +77,14 @@ const Form = () => {
                
             
  */}
+ {
+    dataList.map((list)=><div>
+        <li>{list.date}</li>
+        <li>{list.amount}</li>
+        <li>{list.payment}</li>
+        <li>{list.remark}</li>
+    </div>)
+ }
 
         
         </div>
